@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const root = new URL('../', import.meta.url);
-const order = ['icons.js', 'engine/pipeline.js', 'engine/storage.js', 'content/lessons-dbt.js', 'content/lessons-platform.js', 'content/lessons-production.js', 'content/curriculum.js', 'content/questions.js', 'content/decisions.js', 'content/coding.js', 'app.js'];
+const order = ['icons.js', 'engine/pipeline.js', 'engine/walkthrough-state.js', 'content/walkthrough.js', 'guided-app.js'];
 const parts = [];
 for (const name of order) {
   let source = await readFile(new URL(`src/${name}`, root), 'utf8');
@@ -10,7 +10,8 @@ for (const name of order) {
   parts.push(`// Source: ${name}\n${source}`);
 }
 const bundle = parts.join('\n\n').replace(/<\/script/gi, '<\\/script');
-let css = await readFile(new URL('styles.css', root), 'utf8');
+const worksheet = await readFile(new URL('practice/snowflake-lab.sql', root));
+let css = await readFile(new URL('walkthrough.css', root), 'utf8');
 for (const license of ['dmsans-OFL.txt', 'manrope-OFL.txt', 'ibmplexmono-OFL.txt']) {
   const text = await readFile(new URL(`assets/fonts/${license}`, root), 'utf8');
   css += `\n/* Bundled font license: ${license}\n${text.replace(/\*\//g, '* /')}\n*/\n`;
@@ -21,9 +22,10 @@ for (const match of [...css.matchAll(/url\((\.\/assets\/fonts\/[^)]+)\)/g)]) {
 }
 const favicon = await readFile(new URL('assets/favicon.svg', root));
 let html = await readFile(new URL('index.html', root), 'utf8');
-html = html.replace('<link rel="stylesheet" href="./styles.css" />', `<style>\n${css}\n</style>`);
-html = html.replace('<script type="module" src="./src/app.js"></script>', `<script type="module">\n${bundle}\n</script>`);
+html = html.replace('<link rel="stylesheet" href="./walkthrough.css" />', `<style>\n${css}\n</style>`);
+html = html.replace('<script type="module" src="./src/guided-app.js"></script>', `<script type="module">\n${bundle}\n</script>`);
 html = html.replace('href="./assets/favicon.svg"', `href="data:image/svg+xml;base64,${favicon.toString('base64')}"`);
+html = html.replaceAll('href="./practice/snowflake-lab.sql"', `href="data:text/plain;charset=utf-8;base64,${worksheet.toString('base64')}"`);
 const output = process.argv[2] ? resolve(process.argv[2]) : new URL('dist/datacraft-standalone.html', root);
 await mkdir(new URL('dist/', root), { recursive: true });
 await writeFile(output, html);

@@ -1,18 +1,11 @@
-# Verification record
+# Verification scope
 
-The shipped project was checked with:
+The active version is the 20-step guided walkthrough. The old multi-day application and unused content modules have been removed.
 
-- **24 passing Node.js tests** covering replay idempotence, deterministic version selection, late corrections, cancellation protection, quarantined records, publication blocking, source repairs, local-storage recovery, backup normalization, curriculum references, and mock / code content integrity.
-- **DOM interaction smoke checks** across all **68 scenes in three perspectives**, all **16 code walkthroughs**, question search / filters, saved scenes and questions, notes, progress persistence, eight architecture decisions, and a complete twelve-question mock.
-- **Workflow playback checks:** the initial data blocks at the validation gate; the repaired fixture completes all five stages.
-- **JavaScript syntax and local-import checks** and static build validation.
-- **Python AST parsing** for thirteen teaching examples. This checks Python syntax; it does not validate live platform integration.
-- A standalone HTML build with embedded JavaScript, CSS, fonts, and font licenses.
+All **17 Node.js tests passed**, covering deterministic version selection, stale replay, correction and cancellation behavior, critical-reject release blocking, source repair, account-total reconciliation, the short route, progress normalization and blocked storage, and exact agreement between the browser fixtures and optional Snowflake worksheet inputs.
 
-No Snowflake, dbt, Airflow, source API, CI service, or live LLM was contacted by the application. The programmatic checks do not claim vendor-side execution of the teaching snippets.
+`npm run check` checks JavaScript syntax, relative imports, and the entry-point assets. `npm run build` copies the static application, including the optional SQL worksheet. `npm run standalone` embeds the application, fonts, licenses, and SQL download into one HTML file.
 
-Visual browser and screenshot QA could not be performed: the selected managed environment reported a connected runtime and an enabled desktop capability with unknown desktop state, but the `cua_repl.js` browser-control tool was not offered. The Sites workflow requires skipping browser QA in that case rather than creating another control route. No preview server was started.
+Browser checks passed in Microsoft Edge for all 20 sequential steps and their interview-answer guides; duplicate replay, correction, cancellation, release rejection and repair, live formula input, role masking, pruning, task failure and repair retry, project navigation, notes and HTML escaping, reload persistence, and the standalone build with its embedded SQL download. Desktop (1280 and 1440 pixels) and mobile (390 pixels) layouts were checked for horizontal overflow, with separate screenshot review. The main teaching text measures 19px on desktop with a contrast ratio of approximately 10.49:1; the Aa control raises it to 21px. Browser checks reported no page errors.
 
-Environment: `ccarenv_b64_Y2NhcmVudl8wZmI5YTY0ZDVjNWM4MTkxYjVkNTZmYjkwYjJmYTNjMg`.
-
-The interface includes responsive breakpoints, keyboard controls, reduced-motion handling, local fonts, and explicit simulation labels. Layout and appearance still warrant a normal browser review on the devices you plan to use.
+No live Snowflake, dbt, Airflow, API ingestion, or LLM integration is asserted. The SQL worksheet inputs match the browser engine, but the worksheet has not been executed in Snowflake. Real integration also requires configured credentials, permissions, version-compatible dependencies, and production source and release controls.

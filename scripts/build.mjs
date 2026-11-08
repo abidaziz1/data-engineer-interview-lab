@@ -3,7 +3,7 @@ const root = new URL('../', import.meta.url);
 const out = new URL('dist/', root);
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
-for (const path of ['index.html', 'styles.css', 'src', 'assets', '.nojekyll']) {
+for (const path of ['index.html', 'walkthrough.css', 'src', 'assets', 'practice', '.nojekyll']) {
   await cp(new URL(path, root), new URL(path, out), { recursive: true });
 }
 console.log('Static site built in dist/. No runtime dependencies or secrets required.');
