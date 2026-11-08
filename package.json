@@ -1,0 +1,16 @@
+{
+  "name": "data-engineer-interview-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A visual, self-paced dbt, Snowflake, SQL, Python and Airflow interview simulator.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "build": "node scripts/build.mjs",
+    "standalone": "node scripts/standalone.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
